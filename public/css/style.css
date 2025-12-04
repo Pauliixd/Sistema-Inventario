@@ -1,0 +1,168 @@
+/* --------------------------------------------------------
+   1. Estilos Globales y Tipografía
+   -------------------------------------------------------- */
+:root {
+    --primary-color: #007bff; /* Color azul de Bootstrap primario */
+    --secondary-bg: #f8f9fa; /* Fondo gris claro */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #e9ecef; /* Fondo muy claro para contraste */
+}
+
+/* --------------------------------------------------------
+   2. Cabecera y Contenedores
+   -------------------------------------------------------- */
+header {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container-fluid {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* --------------------------------------------------------
+   3. Área de Inventario
+   -------------------------------------------------------- */
+#inventory-area h2, #budget-area h2 {
+    color: #343a40;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilo para la tabla */
+#inventory-table {
+    border-radius: 0.5rem;
+    overflow: hidden; /* Asegura que las esquinas redondeadas se vean bien */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+#inventory-table thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Estilos de las filas de alerta (Bootstrap ya las maneja, pero reforzamos) */
+.table-danger, .table-warning {
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------
+   4. Área de Presupuesto (Sidebar en Desktop)
+   -------------------------------------------------------- */
+
+/* Hacemos que el área de presupuesto se mantenga visible y flotante en pantallas grandes */
+@media (min-width: 992px) { /* Para lg (Large) y superior */
+    #budget-area {
+        position: sticky; /* Se queda fijo al hacer scroll */
+        top: 20px; /* Separación del top */
+        max-height: calc(100vh - 40px); /* Ocupa casi todo el alto de la ventana */
+        overflow-y: auto; /* Permite scroll si la lista es muy larga */
+    }
+}
+
+#budget-area {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Resumen del Total */
+#budget-summary {
+    background-color: var(--secondary-bg) !important;
+    border: 1px solid #dee2e6;
+    padding: 1rem !important;
+    border-radius: 0.5rem !important;
+}
+
+#budget-total {
+    font-size: 1.8rem;
+    color: #28a745; /* Color verde para el total */
+}
+
+/* Lista de ítems del presupuesto */
+#budget-list .list-group-item {
+    border: none;
+    border-bottom: 1px dashed #ced4da;
+    padding-left: 0;
+    padding-right: 0;
+}
+#budget-list .list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Botón de Remover Ítem */
+.remove-item-btn {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    line-height: 1;
+    font-size: 0.7rem;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+}
+
+/* --------------------------------------------------------
+   5. Estilos de Impresión (@media print)
+   -------------------------------------------------------- */
+
+@media print {
+    /* Ocultar elementos de la interfaz que no son parte del documento */
+    header, 
+    #inventory-area, 
+    #search-input,
+    .add-to-budget-btn, 
+    .remove-item-btn,
+    .d-print-none { /* Oculta el botón de exportar y otros elementos marcados así */
+        display: none !important;
+    }
+
+    /* Mostrar elementos del presupuesto como documento principal */
+    body {
+        background-color: white !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-fluid {
+        /* Fuerza la visualización de una sola columna sin restricciones de layout */
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0.5cm; /* Márgenes de página */
+    }
+
+    /* Asegura que el área de presupuesto se muestre en ancho completo */
+    #budget-area {
+        width: 100%;
+        position: static; /* Desactiva el sticky/float */
+        box-shadow: none !important;
+        padding: 0;
+        margin-top: 0;
+    }
+    
+    /* Mostrar el encabezado formal que estaba oculto en la web */
+    #print-header {
+        display: block !important;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Reducir el tamaño de la fuente para impresión */
+    h2 {
+        font-size: 1.5rem;
+    }
+    .list-group-item {
+        font-size: 0.9rem;
+        border: none;
+    }
+    
+    /* El total debe ser claramente visible */
+    #budget-summary .lead {
+        font-size: 1.2rem;
+    }
+}
